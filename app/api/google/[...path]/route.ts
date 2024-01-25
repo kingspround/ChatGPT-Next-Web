@@ -19,6 +19,28 @@ async function handle(
 
   let baseUrl = serverConfig.googleUrl || GEMINI_BASE_URL;
 
+  safety_settings = [
+   {
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": "BLOCK_NONE",
+   },
+   {
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": "BLOCK_NONE",
+   },
+   {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_NONE",
+   },
+   {
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_NONE",
+   },
+]
+
+  model = genai.GenerativeModel(model_name="gemini-pro",generation_config=generation_config,safety_settings=safety_settings)
+
+  
   if (!baseUrl.startsWith("http")) {
     baseUrl = `https://${baseUrl}`;
   }
